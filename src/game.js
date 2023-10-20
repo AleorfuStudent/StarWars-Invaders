@@ -5,6 +5,22 @@ let stage = 'intro'
 
 function preload() {
     game.load.image('player', 'resources/sprites/x-wings.png')
+    game.load.image('enemy', 'resources/sprites/tie-fighter.png')
+    game.load.image('deathStar', 'resources/sprites/death-star.png')
+    game.load.image('bigExplosion', 'resources/sprites/big-explosion.png')
+    game.load.image('planet', 'resources/sprites/planet.png')
+    game.load.image('playerBullet', 'resources/sprites/player-bullet.png')
+    game.load.image('enemyBullet', 'resources/sprites/enemy-bullet.png')
+    game.load.image('smallExplosion', 'resources/sprites/small-explosion.png')
+
+    game.load.audio('anim','resources/sounds/anim.mp3')
+    game.load.audio('battle','resources/sounds/battle.mp3')
+    game.load.audio('enemyFlying','resources/sounds/enemyFlying.wav')
+    game.load.audio('enemyShoot','resources/sounds/enemyShoot.wav')
+    game.load.audio('explosion','resources/sounds/explosion.wav')
+    game.load.audio('menu','resources/sounds/menu.mp3')
+    game.load.audio('shoot','resources/sounds/shoot.wav')
+    game.load.audio('theme','resources/sounds/theme.mp3')
 
     console.log('game preloaded')
 }

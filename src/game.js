@@ -1,6 +1,6 @@
 const game = new Phaser.Game(256, 224, Phaser.AUTO, null, {preload: preload, create: create, update: update})
-let playing = true
-let cursor = game.input.keyboard.createCursorKeys()
+let playing = false
+let cursor 
 let stage = 'intro'
 
 function preload() {
@@ -35,6 +35,8 @@ function create() {
     game.scale.pageAlignVertically = true
     window.addEventListener('resize', () => game.scale.refresh())
 
+    cursor = game.input.keyboard.createCursorKeys()
+
     console.log('game created')
 }
 
@@ -45,6 +47,10 @@ function update() {
             updateIntro()
         } else if (stage === 'menu') {
             loadMenu()
+            updateMenu()
+        } else if (stage === 'anim') {
+            loadAnim()
+            updateAnim()
         } else if (stage === 'battle') {
             loadBattle()
             updateBattle()
@@ -52,6 +58,6 @@ function update() {
     }
 }
 
-window.onload = function() {
-    playing = true;
-}
+window.addEventListener('mousedown', function() {
+    playing = true
+}) 

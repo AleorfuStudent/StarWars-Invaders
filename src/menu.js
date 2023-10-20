@@ -22,7 +22,7 @@ function loadMenu() {
 
         setTimeout(function() {
             canSkip = true
-        }, 2000)
+        }, 1000)
 
         console.log('menu loaded')
     }

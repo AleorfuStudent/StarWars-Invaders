@@ -1,6 +1,8 @@
 let introLoaded = false
 let startIntroAnim = false
+let introTheme
 
+let firstText
 let title1
 let title2
 let textLines = []
@@ -27,15 +29,18 @@ let textString = [
     'her people and restore',
     'freedom to the galaxy....'
 ]
-const textSpeed = 0.4
+const textSpeed = 0.3
 
 function loadIntro() {
     if (!introLoaded) {
         introLoaded = true
 
+        introTheme = game.add.audio('theme')
+        introTheme.play()
+
         // Añado el texto del inicio
         const textstyle = {font: '10px verdana', fill: '#075DC4FF'}
-        const firstText = game.add.text(15, 105, 'A long time ago, in a galaxy far, far away....', textstyle)   
+        firstText = game.add.text(15, 105, 'A long time ago, in a galaxy far, far away....', textstyle)   
 
         const titlestyle = {font: '20px verdana', fill: '#908301FF'}
         title1 = game.add.text(105, game.height, 'Star', titlestyle)
@@ -61,13 +66,15 @@ function updateIntro() {
         for (let i = 0; i < textLines.length; i++) {
             textLines[i].y -= textSpeed
         }
-        if (title1.y < -250) {
+        if (title1.y < -270 || game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown) {
             stage = 'menu'
+            firstText.destroy()
             title1.destroy()
             title2.destroy()
             for (let i = 0; i < textLines.length; i++) {
                 textLines[i].destroy()
             }
+            introTheme.stop()
         }
     }
 }

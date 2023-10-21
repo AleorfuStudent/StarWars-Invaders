@@ -1,6 +1,5 @@
 const game = new Phaser.Game(256, 224, Phaser.AUTO, null, {preload: preload, create: create, update: update})
 let playing = false
-let cursor 
 let stage = 'intro'
 
 function preload() {
@@ -26,7 +25,6 @@ function preload() {
 }
 
 function create() {
-    // Escalo la pantalla manteniendo la resolución retro
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
     game.scale.setShowAll()
     game.scale.maxWidth = 700
@@ -34,8 +32,6 @@ function create() {
     game.scale.pageAlignHorizontally = true
     game.scale.pageAlignVertically = true
     window.addEventListener('resize', () => game.scale.refresh())
-
-    cursor = game.input.keyboard.createCursorKeys()
 
     console.log('game created')
 }
@@ -60,4 +56,5 @@ function update() {
 
 window.addEventListener('mousedown', function() {
     playing = true
-}) 
+    this.window.removeEventListener('mousedown')
+})

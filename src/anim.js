@@ -10,13 +10,16 @@ let appearEnemys = false
 const animEnemyCols = 14
 const animEnemyRows = 4
 
+let canSkip2 = false
+let enemysAnim = []
+
 function generateEnemysAnim1() {
-    let pointerX = -enemysGap
-    let pointerY = enemysGap
+    let pointerX = enemysGap - 10
+    let pointerY = -enemysGap
     let pointerZ = 0
     for (let i = 1; i <= animEnemyRows; i++) {
         for (let j = 1; j <= animEnemyCols; j++) {
-            enemys.push(game.add.sprite(pointerX, pointerY - pointerZ, 'enemy'))
+            enemysAnim.push(game.add.sprite(pointerX, pointerY - pointerZ, 'enemy'))
             pointerX += enemysGap
             pointerZ += 50
         }
@@ -26,11 +29,11 @@ function generateEnemysAnim1() {
 }
 
 function generateEnemysAnim2() {
-    let pointerX = enemysGap
-    let pointerY = enemysGap
-    for (let i = 1; i <= animEnemyRows; i++) {
-        for (let j = 1; j <= animEnemyCols; j++) {
-            enemys.push(game.add.sprite(pointerX, pointerY 'enemy'))
+    let pointerX = enemysGap - 10
+    let pointerY = game.height + 200
+    for (let i = 1; i <= enemyRows; i++) {
+        for (let j = 1; j <= enemyCols; j++) {
+            enemysAnim.push(game.add.sprite(pointerX, pointerY, 'enemy'))
             pointerX += enemysGap
         }
         pointerX = enemysGap - 10
@@ -62,10 +65,13 @@ function loadAnim() {
                 }
             }, 160)
             setTimeout(function() {
-                moveDS = true
-                for (let i = 0; i < enemys.length; i++) {
-                    enemys[i].destroy()
+                for (let i = 0; i < enemysAnim.length; i++) {
+                    enemysAnim[i].destroy()
                 }
+                enemysAnim = []
+                generateEnemysAnim2()
+                appearEnemys = false
+                moveDS = true
             }, (160 * animEnemyCols*animEnemyRows) + 5000)
         }, 5000)
 
@@ -75,11 +81,23 @@ function loadAnim() {
 
 function updateAnim() {
     if (appearEnemys) {
-        for (let i = 0; i < enemys.length; i++) {
-            enemys[i].y += 5
+        for (let i = 0; i < enemysAnim.length; i++) {
+            enemysAnim[i].y += 5
         }
     }
     if (moveDS) {
-        deathStar.y -= 3
+        deathStar.y -= 0.6
+        for (let i = 0; i < enemysAnim.length; i++) {
+            enemysAnim[i].y -= 0.6
+        }
+        if (enemysAnim[0].y <= enemysGap) {
+            stage = 'battle'
+            animTheme.stop()
+            moveDS = false
+            deathStar.destroy()
+            for (let i = 0; i < enemysAnim.length; i++) {
+                enemysAnim[i].destroy()
+            }
+        }
     }
 }

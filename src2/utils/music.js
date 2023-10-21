@@ -1,5 +1,7 @@
 class Music {
-    constructor() {
+    constructor(game) {
+        this.game = game;
+
         this.themesPlaying = {};
     }
     
@@ -10,7 +12,7 @@ class Music {
             }
             this.themesPlaying[theme].play();
         } else {
-            this.themesPlaying[theme] = game.add.audio(theme);
+            this.themesPlaying[theme] = this.game.phaser.add.audio(theme);
             if (loop != null) {
                 this.themesPlaying[theme].loop = loop;
             }

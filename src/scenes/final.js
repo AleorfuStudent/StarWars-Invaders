@@ -13,6 +13,7 @@ class Final {
         this.start();
     }
     
+    // No veo necesario su explicación, es una animación lineal controlada con diversos eventos en temporizadores
     start() {
         this.game.music.play('anim');
 
@@ -52,6 +53,7 @@ class Final {
         this.timer.start();
     }
 
+    // Al pulsar la tecla espacio pasa de escena a la introducción, empezando así de nuevo
     update() {
         if (this.game.keys['space'].isDown && this.canSkip) {
             this.timer.stop()

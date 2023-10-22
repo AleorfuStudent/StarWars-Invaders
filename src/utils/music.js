@@ -5,6 +5,7 @@ class Music {
         this.themePlaying = null;
     }
     
+    // Destruyo la canción antigua (de haberla) y añado la nueva
     play(theme, loop) {
         if (this.themePlaying != null) {
             this.themePlaying.destroy();
@@ -16,6 +17,7 @@ class Music {
         this.themePlaying.play();
     }
 
+    // De estar pausada a canción la reanudo
     resume() {
         if (this.themePlaying != null) {
             if (!this.playing()) {
@@ -24,6 +26,7 @@ class Music {
         }
     }
 
+    // De estar sonando la pauso
     pause() {
         if (this.themePlaying != null) {
             if (this.playing()) {
@@ -32,6 +35,7 @@ class Music {
         }
     }
 
+    // Elimino la canción
     stop() {
         if (this.themePlaying != null) {
             this.themePlaying.destroy();
@@ -39,6 +43,7 @@ class Music {
         }
     }
 
+    // Devuelvo si la canción está sonando
     playing() {
         if (this.themePlaying != null) {
             return this.themePlaying.isPlaying;

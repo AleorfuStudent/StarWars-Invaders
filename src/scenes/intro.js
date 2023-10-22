@@ -15,6 +15,7 @@ class Intro {
 
         this.showFirstText();
 
+        // Añado un temporizador que ejecutará una función al terminar
         const timer = this.game.phaser.time.create(false);
         timer.add(5000, this.showMovingText, this);
         timer.start();
@@ -22,9 +23,12 @@ class Intro {
 
     update() {
         if (this.textReady) {
+            // Muevo cada linea hacia arriba
             for (const clave in this.movingText) {
                 this.movingText[clave].y -= this.textSpeed;
             }
+
+            // De llegar a arriba del todo la última linea, cambiar de escena
             const keys = Object.keys(this.movingText);
             const lastKey = keys[keys.length - 1];
             if (this.movingText[lastKey].y <= 0 || this.game.keys['space'].isDown) {
@@ -68,10 +72,12 @@ class Intro {
             'freedom to the galaxy....'
         ];
 
+        // Instancio los titulos
         const titleStyle = {font: '20px verdana', fill: '#908301FF'};
         this.movingText['title1'] = this.game.phaser.add.text(105, this.game.phaser.height, 'Star', titleStyle);
         this.movingText['title2'] = this.game.phaser.add.text(100, this.game.phaser.height + 20, 'Wars', titleStyle);
 
+        // Instancio cada linea del texto
         const textStyle = {font: '10px verdana', fill: '#908301FF'};
         for (let i = 0; i < textList.length; i++) {
             this.movingText['text' + i] = this.game.phaser.add.text(55, this.game.phaser.height + 60 + (i * 10), textList[i], textStyle);

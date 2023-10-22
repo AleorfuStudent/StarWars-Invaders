@@ -31,11 +31,14 @@ class Battle {
         this.enemyShootSound = this.game.phaser.add.audio('enemyShoot');
         this.explosionSound = this.game.phaser.add.audio('explosion');
 
+        // Inicializa las fisicas del juego
         this.game.phaser.physics.startSystem(Phaser.Physics.ARCADE);
 
+        // Genera por primera vez a los enemigos
         this.generateEnemys();
 
         this.player = this.game.phaser.add.sprite(150, this.game.phaser.height - 10, 'player');
+        // Le doy fisicas al jugador
         this.game.phaser.physics.arcade.enable(this.player);
 
         const textStyle = {font: '10px verdana', fill: '#ffffff'};
@@ -52,21 +55,25 @@ class Battle {
         this.enemyShoot();
         this.moveEnemyBullet();
 
+        // Este bloque verifica que todos los enemigos hayan sido derrotados, de estarlos vuelven a aparecer enemigos
         let nextRound = true;
         for (const enemy in this.enemys) {
             if (this.enemys[enemy].alive) {
                 nextRound = false;
             }
         }
-
         if (nextRound) {
             this.generateEnemys();
         }
 
+        // Muestra la puntuación y las vidas
         this.scoreText.text = 'Score: ' + this.score;
         this.livesText.text = 'lives: ' + this.lives;
     }
 
+    // Esta función se ejecuta cuando la bala del jugador colisiona con un enemigo
+    // Ocultando a un segundo plano a ambos para poder volverlos a mostrar más adelante
+    // También ejecuta algunos sonidos y animaciones con sprites
     bulletCollision(bullet, enemy) {
         bullet.kill();
         this.score += 100;
@@ -82,6 +89,9 @@ class Battle {
         timer.start();
     }
 
+    // Esta función se ejecuta cuando la bala del enemigo colisiona con el jugador
+    // Ocultando a un segundo plano a ambos para poder volverlos a mostrar más adelante
+    // También ejecuta algunos sonidos y animaciones con sprites
     enemyBulletCollision(bullet, player) {
         bullet.kill();
         this.lives -= 1;
@@ -108,6 +118,7 @@ class Battle {
         }
     }
 
+    // Mueve a los enemigos de lado a lado, de llegar a un borde bajan una sola vez
     moveEnemys() {
         if (this.enemys.length > 0) {
             let y = false;
@@ -142,6 +153,7 @@ class Battle {
         } 
     }
 
+    // Permite el movimiento del jugador y su habilidad de disparo
     movePlayer() {
         if (this.game.keys['right'].isDown && this.player.x < this.game.phaser.width - this.player.width - 3) {
             this.player.x += this.playerSpeed;
@@ -154,6 +166,7 @@ class Battle {
         }
     }
 
+    // De haberla, mueve la bala del jugador
     moveBullet() {
         if (this.bullet != null) {
             if (this.bullet.alive) {
@@ -166,6 +179,7 @@ class Battle {
         }
     }
 
+    // De haberla, mueve la bala del enemigo
     moveEnemyBullet() {
         if (this.enemyBullet != null) {
             if (this.enemyBullet.alive) {
@@ -177,11 +191,13 @@ class Battle {
         }
     }
 
+    // Hace que los enemigos disparen aleatoriamente
     enemyShoot() {
         if (this.enemyBullet === null) {
             const enemy = this.enemys[Math.floor(Math.random() * (this.enemys.length - 1))];
             if (enemy.alive) {
                 this.enemyBullet = this.game.phaser.add.sprite(enemy.x, enemy.y, 'enemyBullet');
+                // Añade fisicas a la bala
                 this.game.phaser.physics.arcade.enable(this.enemyBullet);
                 this.enemyShootSound.stop();
                 this.enemyShootSound.play();
@@ -198,9 +214,11 @@ class Battle {
         }
     }
 
+    // Ejecutado cuando el espacio se pulsa, hace disparar al jugador
     shoot() {
         if (this.bullet === null) {
             this.bullet = this.game.phaser.add.sprite(this.player.x, this.player.y, 'playerBullet');
+            // Añade fisicas a la bala
             this.game.phaser.physics.arcade.enable(this.bullet);
             this.playerShoot.stop();
             this.playerShoot.play();
@@ -213,6 +231,8 @@ class Battle {
         }
     }
 
+    // Esta función genera a los enemigos en forma de una tabla bidimensional
+    // Utilizando un puntero para colocar a los mismos
     generateEnemys() {
         this.enemysX = 45;
         this.enemysY = 10;
@@ -228,6 +248,7 @@ class Battle {
                 pointerX = initialPos;
                 pointerY += this.enemyGap;
             }
+            // Añade fisicas a los enemigos
             this.game.phaser.physics.arcade.enable(this.enemys);
         } else {
             let pos = 0;

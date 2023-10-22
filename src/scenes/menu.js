@@ -12,12 +12,14 @@ class Menu {
         this.game.music.play(this.theme, true);
 
         this.loadTexts();
+        // Añado un temporizador que ejecutará una función al terminar
         const timer = this.game.phaser.time.create(false);
         timer.add(1000, () => this.canSkip = true, this);
         timer.start();
     }
 
     update() { 
+        // Si pulso el espacio paso a la siguiente escena
         if (this.game.keys['space'].isDown && this.canSkip) {
             for (const text in this.texts) {
                 this.texts[text].destroy();
@@ -27,6 +29,7 @@ class Menu {
     }
 
     loadTexts() {
+        // Instancio los textos
         const titleStyle = {font: '20px verdana', fill: '#908301FF'};
         this.texts.push(this.game.phaser.add.text(105, 60, 'Star', titleStyle));
         this.texts.push(this.game.phaser.add.text(100, 80, 'Wars', titleStyle));

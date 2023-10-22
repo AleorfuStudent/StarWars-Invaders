@@ -23,6 +23,7 @@ class Animation {
 
         this.deathStar = this.game.phaser.add.sprite(100, 80, 'deathStar');
         
+        // Añado un temporizador que ejecutará una función al terminar
         this.timer = this.game.phaser.time.create(false);
         this.timer.add(5000, () => this.generateEnemys(), this);
         this.timer.start();
@@ -31,6 +32,8 @@ class Animation {
         timer2.start();
     }
 
+    // Explicar esto no creo que sea muy necesario, ya que lo único que hace es mover cuando es necesario algunos
+    // de los objetos del juego para la animación
     update() {
         if (this.enemys.length > 0 && !this.moveScreen) {
             for (const enemy in this.enemys) {
@@ -66,6 +69,7 @@ class Animation {
         }
     }
 
+    // Esta función pasa a la siguiente escena destruyendo todos los objetos de esta
     skip() {
         this.deathStar.destroy();
         for (const enemy in this.enemys) {
@@ -75,6 +79,7 @@ class Animation {
         this.timer.stop();
     }
 
+    // Esta función genera los enemigos que bajan en la animación
     generateEnemys() {
         this.enemys.push(this.game.phaser.add.sprite(25, -100, 'enemy'));
         this.enemys.push(this.game.phaser.add.sprite(75, -50, 'enemy'));
@@ -83,6 +88,7 @@ class Animation {
         this.enemys.push(this.game.phaser.add.sprite(225, -100, 'enemy'));
     }
 
+    // Esta función genera los enemigos que suben al final
     generateEnemys2() {
         this.enemys = [];
         const initialPos = 45;

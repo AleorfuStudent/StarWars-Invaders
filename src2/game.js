@@ -1,7 +1,6 @@
 class Game {
     constructor() {
         this.phaser = new Phaser.Game(256, 224, Phaser.AUTO, null, {preload: this.preload, create: this.create, update: this.update});
-        this.playing = true;
         this.scene = null;
         this.music;
     }
@@ -34,14 +33,27 @@ class Game {
         this.phaser.scale.pageAlignHorizontally = true;
         this.phaser.scale.pageAlignVertically = true;
         window.addEventListener('resize', () => this.game.scale.refresh());
+        document.addEventListener('visibilitychange', this.focusLost);
 
         this.music = new Music(this);
         this.scene = new Intro(this);
     }
 
     update = () => {
-        if (this.playing && this.scene != null) {
+        if (this.scene != null) {
             this.scene.update();
+        }  
+    }
+
+    focusLost = () => {
+        if (document.hidden) {
+            if (this.music.playing()) {
+                this.music.pause();
+            }
+        } else {
+            if (!this.music.playing()) {
+                this.music.resume();
+            }
         }
     }
 }

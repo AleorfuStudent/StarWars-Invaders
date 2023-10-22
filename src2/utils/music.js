@@ -16,9 +16,19 @@ class Music {
         this.themePlaying.play();
     }
 
+    resume() {
+        if (this.themePlaying != null) {
+            if (!this.playing()) {
+                this.themePlaying.resume();
+            }
+        }
+    }
+
     pause() {
         if (this.themePlaying != null) {
-            this.themePlaying.pause();
+            if (this.playing()) {
+                this.themePlaying.pause();
+            }
         }
     }
 
@@ -31,7 +41,7 @@ class Music {
 
     playing() {
         if (this.themePlaying != null) {
-            return this.themesPlaying[theme].isPlaying;
+            return this.themePlaying.isPlaying;
         }
     }
 }

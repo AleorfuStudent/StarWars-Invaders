@@ -30,7 +30,7 @@ class Menu {
         const titleStyle = {font: '20px verdana', fill: '#908301FF'};
         this.texts.push(this.game.phaser.add.text(105, 60, 'Star', titleStyle));
         this.texts.push(this.game.phaser.add.text(100, 80, 'Wars', titleStyle));
-        const textStyle = {font: '10px verdana', fill: '#ffffff'}
+        const textStyle = {font: '10px verdana', fill: '#ffffff'};
         this.texts.push(this.game.phaser.add.text(75, 120, 'Press Space to start', textStyle));
     }
 }

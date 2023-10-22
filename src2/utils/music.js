@@ -2,34 +2,36 @@ class Music {
     constructor(game) {
         this.game = game;
 
-        this.themesPlaying = {};
+        this.themePlaying = null;
     }
     
     play(theme, loop) {
-        if (theme in this.themesPlaying) {
-            if (loop != null) {
-                this.themesPlaying[theme].loop = loop;
-            }
-            this.themesPlaying[theme].play();
-        } else {
-            this.themesPlaying[theme] = this.game.phaser.add.audio(theme);
-            if (loop != null) {
-                this.themesPlaying[theme].loop = loop;
-            }
-            this.themesPlaying[theme].play();
+        if (this.themePlaying != null) {
+            this.themePlaying.destroy();
+        }
+        this.themePlaying = this.game.phaser.add.audio(theme);
+        if (loop != null) {
+            this.themePlaying.loop = loop;
+        }
+        this.themePlaying.play();
+    }
+
+    pause() {
+        if (this.themePlaying != null) {
+            this.themePlaying.pause();
         }
     }
 
-    pause(theme) {
-        if (theme in this.themesPlaying) {
-            this.themesPlaying[theme].pause();
+    stop() {
+        if (this.themePlaying != null) {
+            this.themePlaying.destroy();
+            this.themePlaying = null;
         }
     }
 
-    stop(theme) {
-        if (theme in this.themesPlaying) {
-            this.themesPlaying[theme].stop();
-            delete this.themesPlaying[theme];
+    playing() {
+        if (this.themePlaying != null) {
+            return this.themesPlaying[theme].isPlaying;
         }
     }
 }

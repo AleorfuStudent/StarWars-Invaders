@@ -15,6 +15,7 @@ class Game {
         this.phaser.load.image('playerBullet', 'resources/sprites/player-bullet.png');
         this.phaser.load.image('enemyBullet', 'resources/sprites/enemy-bullet.png');
         this.phaser.load.image('smallExplosion', 'resources/sprites/small-explosion.png');
+        this.phaser.load.image('laser', 'resources/sprites/laser.png')
 
         this.phaser.load.audio('anim','resources/sounds/anim.mp3');
         this.phaser.load.audio('battle','resources/sounds/battle.mp3');
@@ -24,6 +25,7 @@ class Game {
         this.phaser.load.audio('menu','resources/sounds/menu.mp3');
         this.phaser.load.audio('shoot','resources/sounds/shoot.wav');
         this.phaser.load.audio('theme','resources/sounds/theme.mp3');
+        this.phaser.load.audio('laserSound', 'resources/sounds/laser.wav')
     }
 
     create = () => {

@@ -3,6 +3,7 @@ class Game {
         this.phaser = new Phaser.Game(256, 224, Phaser.AUTO, null, {preload: this.preload, create: this.create, update: this.update});
         this.scene = null;
         this.music;
+        this.keys = {};
     }
 
     preload = () => {
@@ -34,6 +35,8 @@ class Game {
         this.phaser.scale.pageAlignVertically = true;
         window.addEventListener('resize', () => this.game.scale.refresh());
         document.addEventListener('visibilitychange', this.focusLost);
+
+        this.keys['space'] = this.phaser.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         this.music = new Music(this);
         this.scene = new Intro(this);

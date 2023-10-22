@@ -11,6 +11,8 @@ class Animation {
         this.enemyGap = 18;
         this.enemyCols = 10;
         this.enemyRows = 5;
+        this.canSkip = false;
+        this.timer;
 
         this.start();
     }
@@ -21,9 +23,12 @@ class Animation {
 
         this.deathStar = this.game.phaser.add.sprite(100, 80, 'deathStar');
         
-        const timer = this.game.phaser.time.create(false);
-        timer.add(5000, () => this.generateEnemys(), this);
-        timer.start();
+        this.timer = this.game.phaser.time.create(false);
+        this.timer.add(5000, () => this.generateEnemys(), this);
+        this.timer.start();
+        const timer2 = this.game.phaser.time.create(false);
+        timer2.add(1000, () => this.canSkip = true, this);
+        timer2.start();
     }
 
     update() {
@@ -52,14 +57,22 @@ class Animation {
             for (const enemy in this.enemys) {
                 this.enemys[enemy].y -= this.screenSpeed;
             }
-            if (this.enemys[0].y <= this.enemyGap) {
-                this.deathStar.destroy();
-                for (const enemy in this.enemys) {
-                    this.enemys[enemy].destroy();
-                }
-                this.game.scene = new Battle(this.game);
+            if (this.enemys[0].y <= 10) {
+                this.skip();
             }
         }
+        if (this.game.keys['space'].isDown && this.canSkip) {
+            this.skip();
+        }
+    }
+
+    skip() {
+        this.deathStar.destroy();
+        for (const enemy in this.enemys) {
+            this.enemys[enemy].destroy();
+        }
+        this.game.scene = new Battle(this.game);
+        this.timer.stop();
     }
 
     generateEnemys() {

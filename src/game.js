@@ -37,6 +37,8 @@ class Game {
         document.addEventListener('visibilitychange', this.focusLost);
 
         this.keys['space'] = this.phaser.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        this.keys['right'] = this.phaser.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        this.keys['left'] = this.phaser.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 
         this.music = new Music(this);
         this.scene = new Intro(this);

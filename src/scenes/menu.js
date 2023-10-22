@@ -9,7 +9,7 @@ class Menu {
     }
 
     start() {
-        this.game.music.play(this.theme);
+        this.game.music.play(this.theme, true);
 
         this.loadTexts();
         const timer = this.game.phaser.time.create(false);

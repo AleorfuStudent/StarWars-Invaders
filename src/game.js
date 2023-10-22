@@ -33,7 +33,7 @@ class Game {
         this.phaser.scale.maxHeight = 700;
         this.phaser.scale.pageAlignHorizontally = true;
         this.phaser.scale.pageAlignVertically = true;
-        window.addEventListener('resize', () => this.game.scale.refresh());
+        window.addEventListener('resize', () => this.phaser.scale.refresh());
         document.addEventListener('visibilitychange', this.focusLost);
 
         this.keys['space'] = this.phaser.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);

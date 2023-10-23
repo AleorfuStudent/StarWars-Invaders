@@ -37,7 +37,7 @@ class Intro {
     }
 
     showFirstText() {
-        const textStyle = {font: '10px verdana', fill: '#075DC4FF'};
+        const textStyle = {font: '10px Verdana', fill: '#075DC4FF'};
         this.firstText = this.game.phaser.add.text(15, 105, 'A long time ago, in a galaxy far, far away....', textStyle)
     }
 
@@ -68,11 +68,11 @@ class Intro {
             'freedom to the galaxy....'
         ];
 
-        const titleStyle = {font: '20px verdana', fill: '#908301FF'};
+        const titleStyle = {font: '20px Verdana', fill: '#908301FF'};
         this.movingText['title1'] = this.game.phaser.add.text(105, this.game.phaser.height, 'Star', titleStyle);
         this.movingText['title2'] = this.game.phaser.add.text(100, this.game.phaser.height + 20, 'Wars', titleStyle);
 
-        const textStyle = {font: '10px verdana', fill: '#908301FF'};
+        const textStyle = {font: '10px Verdana', fill: '#908301FF'};
         for (let i = 0; i < textList.length; i++) {
             this.movingText['text' + i] = this.game.phaser.add.text(55, this.game.phaser.height + 60 + (i * 10), textList[i], textStyle);
         }

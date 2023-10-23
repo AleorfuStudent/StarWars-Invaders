@@ -44,9 +44,9 @@ class Final {
             this.laser.destroy();
             this.laser = null;
             this.deathStar.revive();
-            const titleStyle = {font: '20px verdana', fill: '#ffffff'};
+            const titleStyle = {font: '20px Verdana', fill: '#ffffff'};
             this.text1 = this.game.phaser.add.text(75, 70, 'Game Over', titleStyle);
-            const textStyle = {font: '10px verdana', fill: '#ffffff'};
+            const textStyle = {font: '10px Verdana', fill: '#ffffff'};
             this.text2 = this.game.phaser.add.text(65, 120, 'Press Space to play again', textStyle);
         }, this);
         this.timer.start();

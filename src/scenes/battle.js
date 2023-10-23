@@ -251,6 +251,7 @@ class Battle {
             // Añade fisicas a los enemigos
             this.game.phaser.physics.arcade.enable(this.enemys);
         } else {
+            this.lives += 1;
             let pos = 0;
             for (let i = 0; i < this.enemyRows; i++) {
                 for (let j = 0; j < this.enemyCols; j++) {
